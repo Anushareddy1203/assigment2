@@ -132,3 +132,14 @@ def plot_corr(country_name):
     # extract the data for the given years and indicator names and transpose the dataframe
     extracted_data_t = country_data_indicator.loc[indicator_names, years].transpose()
     
+
+    # plot the heatmap for the correlation between different indicators
+    plt.title(country_name, fontsize=15)
+    sns.heatmap(extracted_data_t.corr(), linecolor='white',
+                linewidths=0.1, annot=True, cmap="Accent")
+    return extracted_data_t
+
+
+plot_corr("India")
+plot_corr("United Kingdom")
+
