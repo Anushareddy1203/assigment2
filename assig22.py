@@ -58,3 +58,23 @@ def countries_years(file_name):
     # years_columns = (
     #     pd.DataFrame({"Year": read_data.columns[4:]}).set_index("Year").transpose()
     # )
+    
+def plotting_data(indicator_name):
+    """This function takes indicator name as argument, It plots the bar graph for the dataframe and
+    returns the filtered dataframe for the indicator with given countries and years"""
+
+
+
+    if indicator_name == "Population growth (annual %)":
+        label = "Percentage (%)"
+    elif indicator_name == "CO2 emissions (kg per 2015 US$ of GDP)":
+        label = "kg per 2015 US$ of GDP"
+
+    # filter the dataframe with given countries and indicator name and set the index as Country Name.
+    selected_data = main_dataframe[
+        (main_dataframe["Country Name"].isin(countries))
+        & (main_dataframe["Indicator Name"] == indicator_name)
+    ].set_index("Country Name")
+
+    # filter the dataframe with given years and reset the index
+    refined_df = selected_data.loc[:, years].reset_index()
