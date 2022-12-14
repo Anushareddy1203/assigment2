@@ -104,3 +104,31 @@ def mean_stats():
         rot=0, title="Annual mean of the population growth"
     )
     
+
+# driver code for mean_stats function
+mean_stats()
+
+
+def plot_corr(country_name):
+    """This function takes the Country Name as argument and cross compare
+    the correlations between different indicators of the Country and plot the heatmap"""
+
+    # filter the dataframe with given country name
+    country_data = main_dataframe[main_dataframe["Country Name"] == country_name]
+
+    # list of indicators for the country
+    indicator_names = [
+        "Urban population",
+        "Population, total",
+        "CO2 emissions (kt)",
+        "Forest area (sq. km)",
+        "Agricultural land (sq. km)",
+        "Cereal yield (kg per hectare)",
+    ]
+
+    # set the index as Indicator Name and filter the dataframe with given indicator names and years
+    country_data_indicator = country_data.set_index("Indicator Name")
+
+    # extract the data for the given years and indicator names and transpose the dataframe
+    extracted_data_t = country_data_indicator.loc[indicator_names, years].transpose()
+    
