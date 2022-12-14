@@ -78,3 +78,29 @@ def plotting_data(indicator_name):
 
     # filter the dataframe with given years and reset the index
     refined_df = selected_data.loc[:, years].reset_index()
+
+    
+
+    refined_df.set_index("Country Name").plot.bar(
+        rot=0, xlabel="Countries", ylabel=label, title=indicator_name
+    )
+
+    return refined_df
+
+
+# driver code for plotting_data function
+collected_data = plotting_data(indicator_name="Population growth (annual %)")
+plotting_data(indicator_name="CO2 emissions (kg per 2015 US$ of GDP)")
+
+
+def mean_stats():
+    """This function plots the bar graph for the mean of the population growth with the help of
+    pandas statistical function mean()"""
+
+    # mean of the population growth
+    mean_series = collected_data.mean(numeric_only=True)
+    mean_data = pd.DataFrame({"Years": years, "mean": mean_series})
+    mean_data.set_index("Years").plot.bar(
+        rot=0, title="Annual mean of the population growth"
+    )
+    
